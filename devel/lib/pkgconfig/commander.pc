@@ -1,0 +1,8 @@
+prefix=/home/user_216/Desktop/Navigation_with_sensors_v4/devel
+
+Name: commander
+Description: Description of commander
+Version: 1.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: nav_msgs visualization_msgs

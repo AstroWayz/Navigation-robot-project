@@ -1,0 +1,8 @@
+prefix=/home/user_216/Desktop/Navigation_with_sensors_v4/devel
+
+Name: simulation_environment
+Description: Description of simulation_environment
+Version: 1.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: roscpp rospy
