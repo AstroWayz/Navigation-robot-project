@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<launch>
+
+	<!--Define arguments -->
+	<arg name="world"		default="empty"/>
+	<arg name="paused"		default="false"/>
+	<arg name="use_sim_time"	default="true"/>
+	<arg name="gui"			default="true"/>
+	<arg name="headless"		default="false"/>
+	<arg name="debug"		default="false"/>
+	
+	
+	 <!-- Load the world environment -->
+	<include file="$(find gazebo_ros)/launch/empty_world.launch">
+	 <arg name="world_name"				value="$(find simulation_environment)/worlds/Complex_Maze_2.world"/>
+	 <arg name="paused"				value="$(arg paused)"/>
+	 <arg name="use_sim_time"			value="$(arg use_sim_time)"/>
+	 <arg name="gui"				value="$(arg gui)"/>
+	 <arg name="headless"				value="$(arg headless)"/>
+	 <arg name="debug"				value="$(arg debug)"/>
+	</include>
+	
+	<!--this command builds urdf files from xacro by calling launch file>
+	<param name="Navigation_robot_description" command="$(find xacro)/xacro '$(find simulation_environment)/models/Navigation_Robot/navigation_robot.xacro'"/>
+	spawn after urdf
+	<node name="navigation_robot_spawn" pkg="gazebo_ros" type="spawn_model" output="screen" args="-urdf -param Navigation_robot_description -model nav_robot"/>
+	publish the TFs
+	<node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher">
+		<remap from="robot_description" to="Navigation_robot_description"/>
+	</node>-->
+
+
+        <param name="robot_description" command="cat '$(find simulation_environment)/urdf/r2w.xacro'" />
+
+        <arg name="x" default="0"/>
+        <arg name="y" default="0"/>
+        <arg name="z" default="0"/>
+
+        <node name="r2w_spawn" pkg="gazebo_ros" type="spawn_model" output="screen"
+          args="-urdf -param robot_description -model r2w -x $(arg x) -y $(arg y) -z $(arg z)" />
+      
+	
+</launch>
